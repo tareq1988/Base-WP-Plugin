@@ -156,7 +156,7 @@ class Base_Plugin {
 		 *
 		 * Uncomment line below and replace with assets specific to your plugin.
 		 */
-		wp_enqueue_script('baseplugin-scripts', plugins_url( 'scripts/base-plugin.js', BASEPLUGIN_FILE ), array('jquery'), date( 'Ymd' ) );
+		wp_enqueue_script('baseplugin-scripts', plugins_url( 'scripts/baseplugin.js', BASEPLUGIN_FILE ), array('jquery'), date( 'Ymd' ) );
 
 
 		/**
@@ -185,7 +185,7 @@ class Base_Plugin {
 		* Uncomment line below and replace with assets specific to your plugin.
 		*/
 
-		wp_enqueue_style('baseplugin-styles', plugins_url( 'styles/base-plugin.css', BASEPLUGIN_FILE ), false, date( 'Ymd' ) );
+		wp_enqueue_style('baseplugin-styles', plugins_url( 'styles/baseplugin.css', BASEPLUGIN_FILE ), false, date( 'Ymd' ) );
 
 	}
 
