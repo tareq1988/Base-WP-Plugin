@@ -3,7 +3,7 @@
 Plugin Name: Base Plugin
 Plugin URI: http://upthemes.com
 Description: A common codebase that can be used to quickly create a new WordPress plugin.
-Version: 0.1.2
+Version: 0.1.3
 Author: Chris Wallace of UpThemes
 Author URI: http://upthemes.com
 License: GPL2
