@@ -3,8 +3,8 @@
 Plugin Name: Base Plugin
 Plugin URI: http://upthemes.com
 Description: A common codebase that can be used to quickly create a new WordPress plugin.
-Version: 0.1
-Author: Chris Wallace / UpThemes
+Version: 0.1.2
+Author: Chris Wallace of UpThemes
 Author URI: http://upthemes.com
 License: GPL2
 */
@@ -37,7 +37,7 @@ define('BASEPLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename( dirname( $baseplugin_file 
 class Base_Plugin {
 
 	/**
-	 * @var $name				Variable for Base_Plugin used throughout the plugin
+	 * @var $name	Variable for Base_Plugin used throughout the plugin
 	 */
 	protected $name = "Base Plugin";
 
@@ -72,20 +72,12 @@ class Base_Plugin {
 		register_activation_hook( BASEPLUGIN_FILE, array(&$this, 'activate' ) );
 		register_deactivation_hook( BASEPLUGIN_FILE, array(&$this, 'deactivate' ) );
 
+		// Localize our plugin
 		add_action('init',array(&$this,'localization_setup'));
 
-		/**
-		 *
-		 *
-		 */
-		// add_action( 'admin_print_styles-' . $hook, array($this,'admin_styles'));
+		// Set up admin-specific scripts
+		add_action('admin_menu',array($this,'menu_setup'));
 
-		if ( is_admin() ){
-			// Set up admin-specific scripts
-			add_action('admin_menu',array($this,'admin_menu'));
-		}else{
-			// Set up theme-specific scripts
-		}
 	}
 
 	/**
@@ -136,22 +128,13 @@ class Base_Plugin {
 	}
 
 	/**
-	 * Initialize admin menu
-	 *
-	 * @uses Base_Plugin::load_menu()
-	 *
-	 */
-	public function admin_menu() {
-		$this->load_menu();
-	}
-
-	/**
 	 * Creates admin page and enqueues our admin_scripts hook
 	 *
-	 * @uses Base_Plugin::load_menu()
+	 * @uses add_menu_page()
+	 * @uses add_action()
 	 *
 	 */
-	public function load_menu() {
+	public function menu_setup() {
 		$hook = add_menu_page( $this->name, $this->name, 'manage_options', 'baseplugin', array(&$this, 'plugin_page_settings' ), plugins_url( 'images/menu.png', BASEPLUGIN_FILE ) );
 		add_action( 'admin_print_styles-' . $hook, array($this,'admin_styles'));
 		add_action( 'admin_print_scripts-' . $hook, array($this,'admin_scripts'));
@@ -167,8 +150,6 @@ class Base_Plugin {
 	 *
 	 */
 	public function admin_scripts() {
-		if ( !current_user_can( 'manage_options' ) )
-			return;
 
 		/**
 		 * Example for enqueueing our plugin styles
@@ -197,8 +178,6 @@ class Base_Plugin {
 	 *
 	 */
 	public function admin_styles() {
-		if ( !current_user_can( 'manage_options' ) )
-			return;
 
 		/*
 		* Example for enqueueing our plugin styles
@@ -210,17 +189,31 @@ class Base_Plugin {
 
 	}
 
-	public function plugin_page_header(){
-		echo '<div class="icon32" id="baseplugin-icon"><br></div>';
-		echo "<h2>" . sprintf( __('%s Settings','baseplugin'), $this->name ) . "</h2>";
+	/**
+	 * Output plugin page header
+	 *
+	 */
+	public function plugin_page_header(){ ?>
+<div class="icon32" id="baseplugin-icon"><br></div>
+		<h2><?php echo sprintf( __('%s','baseplugin'), $this->name ); ?></h2>
+<?php
 	}
 
-	public function plugin_page_settings(){
-		$this->plugin_page_header();
+	/**
+	 * Output plugin page contents
+	 *
+	 * This is where you should output your plugin settings page.
+	 */
+	public function plugin_page_settings(){ ?>
 
-		// Print your plugin page settings
-		echo "This is a sample plugin page.";
+	<div class="wrap">
 
+		<?php $this->plugin_page_header(); ?>
+
+		<p><?php _e("This is a sample plugin page.","baseplugin"); ?></p>
+
+	</div>
+<?php
 	}
 
 }
