@@ -6,7 +6,7 @@ This is a simple starter plugin that includes a base class with a very simple se
 Getting Started
 ---------------
 
-You're going to want to change the name of the plugin everywhere. You will need to run a five-step process to update names and files for your plugin:
+You will need to change the name of the plugin in a few simple steps:
 
 1. Rename the base plugin folder name and primary PHP file named 'baseplugin.php' to your plugin's name. Make sure the folder name matches the name of the PHP file (without .php on the end).
 2. Rename the Javascript and CSS files inside the /scripts/ and /styles/ directory to 'myplugin.js' and 'myplugin.css'.
