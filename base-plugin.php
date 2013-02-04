@@ -10,13 +10,13 @@ License: GPL2
 */
 
 // don't call the file directly
-if ( !defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) )
 	return;
 
 $baseplugin_file = __FILE__;
 
 /* Find our plugin, wherever it may live! */
-if (isset( $plugin) ) {
+if ( isset( $plugin ) ) {
 	$baseplugin_file = $plugin;
 }
 else if ( isset( $mu_plugin ) ) {
@@ -52,7 +52,7 @@ class Base_Plugin {
 	 * @uses Base_Plugin::__construct()
 	 *
 	 */
-	public function Base_Plugin(){
+	public function Base_Plugin() {
 		$this->__construct();
 	}
 
@@ -92,7 +92,7 @@ class Base_Plugin {
 	public function &init() {
 		static $instance = false;
 
-		if ( !$instance ) {
+		if ( ! $instance ) {
 			$instance = new Base_Plugin();
 		}
 
@@ -196,7 +196,8 @@ class Base_Plugin {
 	public function plugin_page_header() {
 		?>
 		<div class="icon32" id="baseplugin-icon"><br></div>
-				<h2><?php echo sprintf( __('%s','baseplugin'), $this->name ); ?></h2>
+
+		<h2><?php echo sprintf( __( '%s', 'baseplugin' ), $this->name ); ?></h2>
 		<?php
 	}
 
@@ -211,7 +212,7 @@ class Base_Plugin {
 
 			<?php $this->plugin_page_header(); ?>
 
-			<p><?php _e("This is a sample plugin page.","baseplugin"); ?></p>
+			<p><?php _e( 'This is a sample plugin page.', 'baseplugin' ); ?></p>
 
 		</div>
 	<?php
