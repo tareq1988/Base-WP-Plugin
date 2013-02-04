@@ -10,13 +10,13 @@ License: GPL2
 */
 
 // don't call the file directly
-if ( !defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) )
 	return;
 
 $baseplugin_file = __FILE__;
 
 /* Find our plugin, wherever it may live! */
-if (isset( $plugin) ) {
+if ( isset( $plugin ) ) {
 	$baseplugin_file = $plugin;
 }
 else if ( isset( $mu_plugin ) ) {
@@ -26,8 +26,8 @@ else if ( isset( $network_plugin ) ) {
 	$baseplugin_file = $network_plugin;
 }
 
-define('BASEPLUGIN_FILE', $baseplugin_file);
-define('BASEPLUGIN_PATH', WP_PLUGIN_DIR.'/'.basename( dirname( $baseplugin_file ) ) );
+define( 'BASEPLUGIN_FILE', $baseplugin_file );
+define( 'BASEPLUGIN_PATH', WP_PLUGIN_DIR . '/' . basename( dirname( $baseplugin_file ) ) );
 
 /**
  * Base_Plugin class
@@ -52,7 +52,7 @@ class Base_Plugin {
 	 * @uses Base_Plugin::__construct()
 	 *
 	 */
-	public function Base_Plugin(){
+	public function Base_Plugin() {
 		$this->__construct();
 	}
 
@@ -69,14 +69,14 @@ class Base_Plugin {
 	 *
 	 */
 	public function __construct() {
-		register_activation_hook( BASEPLUGIN_FILE, array(&$this, 'activate' ) );
-		register_deactivation_hook( BASEPLUGIN_FILE, array(&$this, 'deactivate' ) );
+		register_activation_hook( BASEPLUGIN_FILE, array( &$this, 'activate' ) );
+		register_deactivation_hook( BASEPLUGIN_FILE, array( &$this, 'deactivate' ) );
 
 		// Localize our plugin
-		add_action('init',array(&$this,'localization_setup'));
+		add_action( 'init', array( &$this,'localization_setup' ) );
 
 		// Set up admin-specific scripts
-		add_action('admin_menu',array($this,'menu_setup'));
+		add_action( 'admin_menu', array( $this,'menu_setup' ) );
 
 	}
 
@@ -92,7 +92,7 @@ class Base_Plugin {
 	public function &init() {
 		static $instance = false;
 
-		if ( !$instance ) {
+		if ( ! $instance ) {
 			$instance = new Base_Plugin();
 		}
 
@@ -136,8 +136,8 @@ class Base_Plugin {
 	 */
 	public function menu_setup() {
 		$hook = add_menu_page( $this->name, $this->name, 'manage_options', 'baseplugin', array(&$this, 'plugin_page_settings' ), plugins_url( 'images/menu.png', BASEPLUGIN_FILE ) );
-		add_action( 'admin_print_styles-' . $hook, array($this,'admin_styles'));
-		add_action( 'admin_print_scripts-' . $hook, array($this,'admin_scripts'));
+		add_action( 'admin_print_styles-' . $hook, array( $this, 'admin_styles' ) );
+		add_action( 'admin_print_scripts-' . $hook, array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Base_Plugin {
 		 *
 		 * Uncomment line below and replace with assets specific to your plugin.
 		 */
-		wp_enqueue_script('baseplugin-scripts', plugins_url( 'scripts/baseplugin.js', BASEPLUGIN_FILE ), array('jquery'), date( 'Ymd' ) );
+		wp_enqueue_script( 'baseplugin-scripts', plugins_url( 'scripts/baseplugin.js', BASEPLUGIN_FILE ), array( 'jquery' ), date( 'Ymd' ) );
 
 
 		/**
@@ -185,7 +185,7 @@ class Base_Plugin {
 		* Uncomment line below and replace with assets specific to your plugin.
 		*/
 
-		wp_enqueue_style('baseplugin-styles', plugins_url( 'styles/baseplugin.css', BASEPLUGIN_FILE ), false, date( 'Ymd' ) );
+		wp_enqueue_style( 'baseplugin-styles', plugins_url( 'styles/baseplugin.css', BASEPLUGIN_FILE ), false, date( 'Ymd' ) );
 
 	}
 
@@ -193,10 +193,12 @@ class Base_Plugin {
 	 * Output plugin page header
 	 *
 	 */
-	public function plugin_page_header(){ ?>
-<div class="icon32" id="baseplugin-icon"><br></div>
-		<h2><?php echo sprintf( __('%s','baseplugin'), $this->name ); ?></h2>
-<?php
+	public function plugin_page_header() {
+		?>
+		<div class="icon32" id="baseplugin-icon"><br></div>
+
+		<h2><?php echo sprintf( __( '%s', 'baseplugin' ), $this->name ); ?></h2>
+		<?php
 	}
 
 	/**
@@ -204,18 +206,18 @@ class Base_Plugin {
 	 *
 	 * This is where you should output your plugin settings page.
 	 */
-	public function plugin_page_settings(){ ?>
+	public function plugin_page_settings() {
+		?>
+		<div class="wrap">
 
-	<div class="wrap">
+			<?php $this->plugin_page_header(); ?>
 
-		<?php $this->plugin_page_header(); ?>
+			<p><?php _e( 'This is a sample plugin page.', 'baseplugin' ); ?></p>
 
-		<p><?php _e("This is a sample plugin page.","baseplugin"); ?></p>
-
-	</div>
-<?php
+		</div>
+	<?php
 	}
 
-}
+} // Base_Plugin
 
 $baseplugin = Base_Plugin::init();
