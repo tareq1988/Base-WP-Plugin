@@ -125,12 +125,12 @@ class Base_Plugin {
         /**
          * All styles goes here
          */
-        wp_enqueue_style( 'baseplugin-styles', plugins_url( 'css/style.css', __FILE__ ), false, date( 'Ymd' ) );
+        wp_enqueue_style( 'baseplugin-styles', plugins_url( 'assets/css/style.css', __FILE__ ), false, date( 'Ymd' ) );
 
         /**
          * All scripts goes here
          */
-        wp_enqueue_script( 'baseplugin-scripts', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ), false, true );
+        wp_enqueue_script( 'baseplugin-scripts', plugins_url( 'assets/js/script.js', __FILE__ ), array( 'jquery' ), false, true );
 
 
         /**
