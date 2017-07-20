@@ -1,12 +1,15 @@
 <?php
 /*
 Plugin Name: Starter Plugin
-Plugin URI: http://example.com/
+Plugin URI: https://example.com/
 Description: Description
 Version: 0.1
 Author: Your Name
-Author URI: http://example.com/
+Author URI: https://example.com/
 License: GPL2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: baseplugin
+Domain Path: /languages
 */
 
 /**
@@ -57,15 +60,14 @@ class Base_Plugin {
      * @uses add_action()
      */
     public function __construct() {
+
+        $this->define_constants();
+
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
         register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
-        // Localize our plugin
-        add_action( 'init', array( $this, 'localization_setup' ) );
-
-        // Loads frontend scripts and styles
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
+        $this->includes();
+        $this->init_hooks();
     }
 
     /**
@@ -100,6 +102,28 @@ class Base_Plugin {
      */
     public function deactivate() {
 
+    }
+
+    /**
+     * Include the required files
+     *
+     * @return void
+     */
+    public function includes() {
+
+    }
+
+    /**
+     * Initialize the hooks
+     *
+     * @return void
+     */
+    public function init_hooks() {
+        // Localize our plugin
+        add_action( 'init', array( $this, 'localization_setup' ) );
+
+        // Loads frontend scripts and styles
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
     }
 
     /**

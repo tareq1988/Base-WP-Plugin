@@ -1,0 +1,10 @@
+includes/pro
+nbproject
+Gruntfile.js
+package.json
+docs.md
+changelog.txt
+plugin-deploy.sh
+npm-debug.log
+secret.json
+log.txt
