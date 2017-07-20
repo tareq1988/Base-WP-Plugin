@@ -49,6 +49,13 @@ if ( !defined( 'ABSPATH' ) ) exit;
 class Base_Plugin {
 
     /**
+     * Plugin version
+     *
+     * @var string
+     */
+    public $version = '0.1.0';
+
+    /**
      * Constructor for the Base_Plugin class
      *
      * Sets up all the appropriate hooks and actions
@@ -68,6 +75,20 @@ class Base_Plugin {
 
         $this->includes();
         $this->init_hooks();
+    }
+
+    /**
+     * Define the constants
+     *
+     * @return void
+     */
+    public function define_constants() {
+        define( 'BASEPLUGIN_VERSION', $this->version );
+        define( 'BASEPLUGIN_FILE', __FILE__ );
+        define( 'BASEPLUGIN_PATH', dirname( BASEPLUGIN_FILE ) );
+        define( 'BASEPLUGIN_INCLUDES', BASEPLUGIN_PATH . '/includes' );
+        define( 'BASEPLUGIN_URL', plugins_url( '', BASEPLUGIN_FILE ) );
+        define( 'BASEPLUGIN_ASSETS', BASEPLUGIN_URL . '/assets' );
     }
 
     /**
@@ -93,6 +114,7 @@ class Base_Plugin {
      */
     public function activate() {
 
+        update_option( 'baseplugin_version', BASEPLUGIN_VERSION );
     }
 
     /**
